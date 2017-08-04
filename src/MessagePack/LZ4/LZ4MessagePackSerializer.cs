@@ -90,6 +90,11 @@ namespace MessagePack
         {
             var serializedData = MessagePackSerializer.SerializeUnsafe(obj, resolver);
 
+            return Compress(serializedData);
+        }
+
+        static ArraySegment<byte> Compress(ArraySegment<byte> serializedData)
+        {
             if (serializedData.Count < NotCompressionSize)
             {
                 return serializedData;

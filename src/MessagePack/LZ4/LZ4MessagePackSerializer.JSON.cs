@@ -3,6 +3,7 @@ using MessagePack.Internal;
 using MessagePack.LZ4;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Text;
 
 namespace MessagePack
@@ -60,6 +61,20 @@ namespace MessagePack
             var sb = new StringBuilder();
             ToJsonCore(bytes, 0, sb);
             return sb.ToString();
+        }
+
+        public static byte[] FromJson(string str)
+        {
+            using (var sr = new StringReader(str))
+            {
+                return FromJson(sr);
+            }
+        }
+        public static byte[] FromJson(TextReader reader)
+        {
+            var msgPack = MessagePackSerializer.FromJson(reader);
+            var compressed = Compress(new ArraySegment<byte>(msgPack));
+            return MessagePackBinary.FastCloneWithResize(compressed.Array, compressed.Count);
         }
 
         static int ToJsonCore(byte[] bytes, int offset, StringBuilder builder)

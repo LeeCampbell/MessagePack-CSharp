@@ -1,15 +1,11 @@
 ﻿using SharedData;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace MessagePack.Tests.ExtensionTests
 {
-
     public class LZ4Test
     {
         T Convert<T>(T value)

@@ -1,12 +1,13 @@
-﻿using Xunit;
+using Xunit;
 
-namespace MessagePack.Tests
+namespace MessagePack.Tests.ExtensionTests
 {
-    public class ToJsonTest
+    public class Lz4ToJsonTest
     {
         string JsonConvert(string json)
         {
-            return MessagePackSerializer.ToJson(MessagePackSerializer.FromJson(json));
+            var msgPack = LZ4MessagePackSerializer.FromJson(json);
+            return LZ4MessagePackSerializer.ToJson(msgPack);
         }
 
         [Theory]
@@ -33,8 +34,8 @@ namespace MessagePack.Tests
         public void FloatJson()
         {
             var f = 3.33f;
-            var xs = MessagePackSerializer.Serialize(f);
-            var json = MessagePackSerializer.ToJson(xs);
+            var xs = LZ4MessagePackSerializer.Serialize(f);
+            var json = LZ4MessagePackSerializer.ToJson(xs);
             json.Is("3.33");
         }
     }
