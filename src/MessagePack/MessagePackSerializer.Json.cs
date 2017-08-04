@@ -135,7 +135,7 @@ namespace MessagePack
             return count;
         }
 
-        static int ToJsonCore(byte[] bytes, int offset, StringBuilder builder)
+        internal static int ToJsonCore(byte[] bytes, int offset, StringBuilder builder)
         {
             var readSize = 0;
             var type = MessagePackBinary.GetMessagePackType(bytes, offset);
